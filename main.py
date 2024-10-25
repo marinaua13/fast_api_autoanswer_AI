@@ -79,7 +79,8 @@ async def auto_reply(comment, db_engine, delay: int):
         db = Session(bind=db_engine)
         try:
             reply = schemas.CommentCreate(content=reply_content, post_id=comment.post_id)
-            crud.create_comment(db=db, comment=reply, user_id=comment.owner_id)
+            is_blocked = False
+            crud.create_comment(db=db, comment=reply, user_id=comment.owner_id, is_blocked=is_blocked)
         finally:
             db.close()
 
@@ -144,3 +145,4 @@ def get_comments_breakdown(
             "blocked_comments": record.blocked_comments
         } for record in daily_comments
     ]
+
