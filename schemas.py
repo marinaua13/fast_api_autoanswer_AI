@@ -16,6 +16,7 @@ class Comment(CommentBase):
     id: int
     created_at: datetime
     post_id: int
+    is_blocked: bool
 
     class Config:
         from_attributes = True
